@@ -1,5 +1,4 @@
-package org.example;
-
+package org.example.SpringEci;
 @RestController
 public class HelloService {
 

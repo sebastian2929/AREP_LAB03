@@ -1,5 +1,4 @@
-package org.example;
-
+package org.example.TestEci;
 public class TestClass {
     @Test
     public static void test1(){

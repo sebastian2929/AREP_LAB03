@@ -1,5 +1,4 @@
-package org.example;
-
+package org.example.TestEci;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
