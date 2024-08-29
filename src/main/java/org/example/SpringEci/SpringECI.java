@@ -1,4 +1,5 @@
 package org.example.SpringEci;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -7,31 +8,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpringECI {
-    public static void main(String[] args) throws ClassNotFoundException, MalformedURLException, InvocationTargetException, IllegalAccessException {
-        Class c = Class.forName(args[0]);
+    public static void main(String[] args) throws ClassNotFoundException, MalformedURLException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        if (args.length == 0) {
+            System.err.println("No class name provided");
+            return;
+        }
+
+        Class<?> c = Class.forName(args[0]);
         Map<String, Method> services = new HashMap<>();
+        Object instance = c.getDeclaredConstructor().newInstance(); // Create an instance of the class
 
         // Cargar componentes
-        if(c.isAnnotationPresent(RestController.class)){
+        if (c.isAnnotationPresent(RestController.class)) {
             Method[] methods = c.getDeclaredMethods();
-            for(Method m: methods){
-                if(m.isAnnotationPresent(GetMapping.class)) {
-                    String key =  m.getAnnotation(GetMapping.class).value();
+            for (Method m : methods) {
+                if (m.isAnnotationPresent(GetMapping.class)) {
+                    String key = m.getAnnotation(GetMapping.class).value();
                     services.put(key, m);
                 }
             }
         }
 
-        //Codigo quemado para ejemplo
+        // Código quemado para ejemplo
+        URL servicesUrl = new URL("http://localhost:8080/App/hello");
+        String path = servicesUrl.getPath();
+        System.out.println("path: " + path);
+        String serviceName = path.substring(1);
+        System.out.println("Service name: " + serviceName);
 
-        URL servicesurl = new URL("http://localhost:8080/App/hello");
-        String path = servicesurl.getPath();
-        System.out.println("path:" + path);
-        String servicenme = path.substring(4);
-        System.out.println("Service name:" + servicenme);
-
-        Method ms = services.get(servicenme);
-        ms.invoke(ms);
-        System.out.println("Respuesta servicio: " + ms.invoke(ms));
+        Method ms = services.get(serviceName);
+        if (ms != null) {
+            Object result = ms.invoke(instance);
+            System.out.println("Respuesta servicio: " + result);
+        } else {
+            System.out.println("Servicio no encontrado: " + serviceName);
+        }
     }
 }
