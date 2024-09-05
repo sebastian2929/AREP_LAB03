@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AREP LAB 3</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+</head>
+<body>
+<h1>Arquitecturas de Servidores de Aplicaciones, Meta protocolos de objetos, Patrón IoC, Reflexión</h1>
+<form id="taskForm">
+    <input type="text" id="task" placeholder="Ingresa una tarea" required>
+    <button type="submit">Añadir Tarea</button>
+</form>
+<div class="button-group">
+    <button id="showTasksButton">Mostrar Tareas</button>
+    <button id="clearTasksButton">Borrar Todas las Tareas</button>
+    <button id="showImageButton">Mostrar Imagen</button>
+</div>
+
+<div id="tasksList" class="tasks-list" style="display: none;"></div>
+
+<!-- Modal para la imagen -->
+<div id="imageModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <img id="modalImage" src="tanque.png" alt="Tanque" />
+    </div>
+</div>
+
+<div id="result" style="display: none;"></div>
+
+<script src="scripts.js"></script>
+
+<footer>
+    <p>Sebastian David Blanco Rodriguez</p>
+</footer>
+</body>
+</html>
